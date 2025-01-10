@@ -1,11 +1,9 @@
-const cryptoEnum = require('../enums/crypto');
-
 module.exports = (Schema, mongoose) => {
     const cryptoPrice = new Schema({
         coinId: {
             type: String,
             required: true,
-            enum: Object.values(cryptoEnum)
+            enum: ['bitcoin', 'matic-network', 'ethereum']
         },
         priceUSD: {
             type: Number,
