@@ -13,13 +13,13 @@ class CronJobManager {
                 try {
                     await Services.cryptoPrice.updatePrices();
                 } catch (error) {
-                    logger.error('Error in crypto price update job:', error);
+                    logger.info(error);
                 }
             });
 
             this.jobs.push(cryptoPriceFetchJob);
         } catch (error) {
-            logger.error('Error initializing cron jobs:', error);
+            logger.info(error);
             throw error;
         }
     }
@@ -28,7 +28,7 @@ class CronJobManager {
         try {
             this.jobs.forEach(job => job.start());
         } catch (error) {
-            logger.error('Error starting cron jobs:', error);
+            logger.info(error);
             throw error;
         }
     }
