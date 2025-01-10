@@ -6,7 +6,6 @@ const Config = require('./src/config/config.js');
 const CronJobManager = require('./src/jobs');
 const db = require('./src/models');
 const logger = require('./src/util/logger');
-const Services = require('./src/services');
 
 
 
