@@ -21,11 +21,23 @@ module.exports = {
             throw error;
         }
     },
-    getLast100Prices: async (coin) => {
+    getSDLast100Prices: async (coin) => {
         try {
-            return await db.cryptoPrice.find({coin})
-               .sort({timestamp: -1})
-               .limit(100)
+            const result =  await db.cryptoPrice.aggregate([
+                { $match: { coin } },
+                { $sort: { timestamp: -1 } },
+                { $limit: 100 },
+                { 
+                    $group: { 
+                        _id: null,
+                        deviation: { 
+                            $stdDevSamp: "$price" 
+                        }
+                    }
+                }
+            ]);
+    
+            return result;
         } catch (error) {
             logger.info(error);
             throw error;
