@@ -14,15 +14,14 @@ const db = {
   generateObjectId: () => new mongoose.Types.ObjectId()
 };
 
-const connect = () => {
-  mongoose
-    .connect(config.mongoDbUrl)
-    .then(() => {
-      logger.info('Mongo DB connected successfully!!!!');
-    })
-    .catch((err) => {
-      logger.info('Error connecting mongo DB', err);
-    });
+const connect = async () => {
+  try {
+    await mongoose.connect(config.mongoDbUrl);
+    logger.info('MongoDB connected successfully!');
+  } catch (err) {
+    logger.error('Error connecting to MongoDB:', err);
+    throw err;
+  }
 };
 
 glob
