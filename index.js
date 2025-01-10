@@ -3,13 +3,14 @@ const server = express();
 const router = express.Router();
 
 const Config = require('./src/config/config.js');
+const CronJobManager = require('./src/jobs');
 const db = require('./src/models');
 const logger = require('./src/util/logger');
 const Services = require('./src/services');
 
 
 
-const PORT = Config.por || '3000';
+const PORT = Config.port || '3000';
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
@@ -32,6 +33,9 @@ server.use((err, req, res, next) => {
     });
 });
 
-server.listen(PORT, () => {
-    db.connect();
+server.listen(PORT, async () => {
+    await db.connect();
+    logger.info(`Server running on port ${PORT}`);
+    CronJobManager.initJobs();
+    CronJobManager.startAllJobs();
 });
