@@ -6,9 +6,9 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Aditya Kumar Kasaudhan",
   "license": "ISC",
-  "description": "",
+  "description": "A crypto price tracking application",
   "dependencies": {
     "axios": "^1.7.9",
     "cron": "^3.5.0",
