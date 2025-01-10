@@ -12,26 +12,26 @@ module.exports = {
             throw error;
         }
     },
-    getLatestPrice: async (coin) => {
+    getLatestPrice: async (coinId) => {
         try {
-            return await db.cryptoPrice.findOne({coin})
+            return await db.cryptoPrice.findOne({coinId})
                 .sort({timestamp: -1})
         } catch (error) {
             logger.info(error);
             throw error;
         }
     },
-    getSDLast100Prices: async (coin) => {
+    getSDLast100Prices: async (coinId) => {
         try {
             const result =  await db.cryptoPrice.aggregate([
-                { $match: { coin } },
+                { $match: { coinId } },
                 { $sort: { timestamp: -1 } },
                 { $limit: 100 },
                 { 
                     $group: { 
                         _id: null,
                         deviation: { 
-                            $stdDevSamp: "$price" 
+                            $stdDevSamp: "$priceUSD" 
                         }
                     }
                 }
