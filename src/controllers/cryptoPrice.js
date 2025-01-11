@@ -5,7 +5,7 @@ const logger = require('../util/logger');
 module.exports = {
     getLatestPrice: async (req, res, next) => {
         try {
-            const { coin } = req.body;
+            const { coin } = req.query;
             const latestPrices = await Services.cryptoPrice.getLatestPrice(coin);
             
             return res.status(200).json({
@@ -24,7 +24,7 @@ module.exports = {
     },
     getSDLast100Prices: async (req, res, next) => {
         try {
-            const { coin } = req.body;
+            const { coin } = req.query;
             const deviation = await Services.cryptoPrice.getSDLast100Prices(coin);
             return res.status(200).json({
                 status: 200,
